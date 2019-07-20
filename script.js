@@ -54,15 +54,23 @@ function soundGenerate(element){
   mAudio.play();
 }
 function comparePress (index){
-  // iterate and compare each element
+  // check if the last value on each array matched
   if(gamePattern[index] === usrselectedArray[index]){
-    if(gamePattern.length === usrselectedArray.length){
+    // check if the length also matches if not compare the last index and the length if it fails game over
+    if(usrselectedArray.length === gamePattern.length){
       console.log("A match");
       lvl++;
       setTimeout(nextSequence, 1000);
     }
-  } else {
-    console.log("not a match");
+  } else if (usrselectedArray.length >= gamePattern.length && gamePattern[index] != usrselectedArray[index]) {
+    // change the title and show the change in body for game over
+    $("#level-title").text("Game Over, press any key to restart");
+    currentStatus = false;
+    lvl = 0;
+    $("body").addClass(".game-over");
+    setTimeout(function (){
+      $("body").removeClass(".game-over");
+    }, 200);
   }
 };
 function nextSequence(){
